@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HeroeService } from '../services/heroes.services';
 
@@ -9,9 +9,10 @@ import { HeroeService } from '../services/heroes.services';
   templateUrl: './buscador.component.html'
 })
 export class BuscadorComponent implements OnInit {
-
-  heroes:any[]=[];
-  termino:String;
+  @Input() heroe: any = {};
+  @Input() index: number;
+  heroes: any[] = [];
+  termino: string;
 
   constructor(private activatedRoute: ActivatedRoute,
               private heroesService: HeroeService,
@@ -25,8 +26,10 @@ export class BuscadorComponent implements OnInit {
       this.heroes= this.heroesService.buscarHeroes(params['termino'] );
       console.log(this.heroes);
     })
-
-
-  }
+}
+verHeroe(){
+  console.log(this.index);
+  this.router.navigate( ['/heroe', this.index] );
+}
 
 }
